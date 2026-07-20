@@ -1,0 +1,48 @@
+class Solution {
+    ArrayList<String>ans = new ArrayList<>();
+    void solvingDfs(int[][] maze,int i,int j,int n,StringBuilder path)
+    {
+        if(i==n-1 && j==n-1)
+        {
+            ans.add(path.toString());
+            return;
+        }
+        maze[i][j] = 0;
+        if(i  +1 <n && maze[i+1][j] == 1)
+        {
+            solvingDfs(maze,i+1,j,n,path.append("D"));
+            path.deleteCharAt(path.length() - 1);
+        }
+            if(j -1 >=0 && maze[i][j-1] == 1)
+        {
+            solvingDfs(maze,i,j-1,n,path.append("L"));
+            path.deleteCharAt(path.length() - 1);
+        }
+            if(j  +1 <n && maze[i][j+1] == 1)
+        {
+            solvingDfs(maze,i,j+1,n,path.append("R"));
+            path.deleteCharAt(path.length() - 1);
+        }
+      
+          if(i  -1 >= 0 && maze[i-1][j] == 1)
+        {
+            solvingDfs(maze,i-1,j,n,path.append("U"));
+            path.deleteCharAt(path.length() - 1);
+        }
+        maze[i][j] =1;
+      
+        
+        
+    }
+    public ArrayList<String> ratInMaze(int[][] maze) {
+        int n = maze.length;
+     if(maze[0][0]!=1||maze[n-1][n-1]!=1)
+     {
+         return ans;
+     }
+     StringBuilder path = new StringBuilder();
+     solvingDfs(maze,0,0,n,path);
+     return ans;
+        
+    }
+}
