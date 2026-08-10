@@ -1,0 +1,57 @@
+class Solution {
+    boolean valid(int capacity,int k,int[] arr)
+    {
+        int count = 1;
+        int value = 0;
+        for(int i = 0;i<arr.length;i++)
+        {
+         value+=arr[i];
+         if(value>capacity)
+         {
+             count++;
+             value = arr[i];
+         }
+        }
+        if(count<=k)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public int findPages(int[] arr, int k) {
+       if(arr.length < k)
+       {
+           return -1;
+       }
+       int max = -1;
+       int minimum = Integer.MIN_VALUE;
+       int maximum = Integer.MAX_VALUE;
+       int sum = 0;
+       for(int i = 0;i<arr.length;i++)
+       {
+           sum+=arr[i];
+          maximum = Math.max(maximum,arr[i]);
+          minimum = Math.max(minimum,arr[i]);
+       }
+       int high = maximum;
+       int low = minimum;
+       while(low<=high)
+       {
+           int mid = low + (high - low)/2;
+           if(valid(mid,k,arr))
+           {
+               max = mid;
+               high = mid -1;
+           }
+           else
+           {
+               low = mid+1;
+           }
+       }
+       return max;
+        
+    }
+}
