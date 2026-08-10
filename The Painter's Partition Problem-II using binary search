@@ -1,0 +1,51 @@
+class Solution {
+    boolean valid(int capa,int[] arr,int k)
+    {
+        int value = 0;
+        int count = 1;
+        for(int i = 0;i<arr.length;i++)
+        {
+            value+=arr[i];
+            if(value>capa)
+            {
+                value = arr[i];
+                count++;
+            }
+        }
+        if(count<=k)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public int minTime(int[] arr, int k) {
+        // code here
+        int min = Integer.MIN_VALUE;
+        int sum = 0;
+        for(int i = 0;i<arr.length;i++)
+        {
+            sum+=arr[i];
+            min = Math.max(min,arr[i]);
+        }
+        int low = min;
+        int high = sum;
+        int max = -1;
+        while(low<=high)
+        {
+            int mid = low + (high - low)/2;
+            if(valid(mid,arr,k))
+            {
+                max = mid;
+                high = mid -1;
+            }
+            else
+            {
+                low = mid+1;
+            }
+        }
+        return max;
+    }
+}
